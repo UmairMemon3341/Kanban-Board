@@ -11,7 +11,7 @@
         <nav>
             <div class="left">Kanban</div>
             <div class="right">
-                <button>Add New Taks</button>
+                <button id="toggle-modal">Add New Taks</button>
             </div>
         </nav>
         <section class="board">
@@ -40,6 +40,14 @@
             </div>
         </section>
     </main>
+    <div class="modal add-new-task">
+        <div class="bg"></div>
+        <div class="center">
+            <input type="text" name="" id="task-title-inp" placeholder="Task Title">
+            <textarea name="" id="task-des-inp" placeholder="Task Description"></textarea>
+            <button class="add-task-btn" id="add-new-task">Add Task</button>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

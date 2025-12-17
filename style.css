@@ -1,108 +1,160 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 /* root */
 
-:root{
-    --bg-color: #000000;
-    --bg-task-color: #2a2a2a;
-    --primary-text-color: #f4f4f4;
-    --bg-btn-color: #1a1a1a;
-    --delete-btn-color: #ff4d4d;
+:root {
+  --bg-color: #000000;
+  --bg-task-color: #2a2a2a;
+  --primary-text-color: #f4f4f4;
+  --bg-btn-color: #1a1a1a;
+  --delete-btn-color: #ff4d4d;
 
-    /* padding variables */
+  /* padding variables */
 
-    --nav-padding: 15px 30px;
-    --section-padding: 15px 30px;
-    --padding-sm: 5px;
-    --padding-md: 10px;
-    --padding-lg: 15px;
-    --padding-xl: 20px;
-    --padding-xxl: 30px;
+  --nav-padding: 15px 30px;
+  --section-padding: 15px 30px;
+  --padding-sm: 5px;
+  --padding-md: 10px;
+  --padding-lg: 15px;
+  --padding-xl: 20px;
+  --padding-xxl: 30px;
 
-    /* border radius variables */
+  /* border radius variables */
 
-    --border-radius-sm: 5px;
-    --border-radius-md: 10px;
-    --border-radius-lg: 15px;
-    --border-radius-xl: 20px;
-    --border-radius-xxl: 30px;
-}                               
-
-body{
-    background-color: var(--bg-color);
-    color: var(--primary-text-color);
+  --border-radius-sm: 5px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 15px;
+  --border-radius-xl: 20px;
+  --border-radius-xxl: 30px;
 }
-main{
-    height: 100vh;
+
+body {
+  background-color: var(--bg-color);
+  color: var(--primary-text-color);
+}
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+nav {
+  padding: var(--nav-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav button {
+  background-color: var(--bg-btn-color);
+  border: none;
+  outline: none;
+  color: var(--primary-text-color);
+  padding: var(--padding-md) var(--padding-lg);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+}
+
+section {
+  padding: var(--section-padding);
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: var(--padding-xxl);
+}
+
+section .task-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-md);
+  flex-grow: 1;
+  background-color: var(--bg-btn-color);
+  padding: var(--padding-md);
+  border-radius: var(--border-radius-md);
+  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+}
+section .task-column .heading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+section .task-column .task {
+  background-color: var(--bg-task-color);
+  padding: var(--padding-md);
+  border-radius: var(--border-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-sm);
+  cursor: grab;
+}
+section .task-column .task button {
+  align-self: flex-end;
+  cursor: pointer;
+  padding: var(--padding-sm) var(--padding-md);
+  border-radius: var(--border-radius-sm);
+  border: none;
+  outline: none;
+  background-color: var(--delete-btn-color);
+  color: var(--primary-text-color);
+}
+section .task-column.hover-over {
+  border: 2px dashed var(--primary-text-color);
+  scale: 1.05;
+}
+
+.modal .bg {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(61, 61, 61, 0.404);
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal.active{
     display: flex;
-    flex-direction: column;
-}
-nav{
-    padding: var(--nav-padding);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-nav button{
-    background-color: var(--bg-btn-color);
-    border: none;
-    outline: none;
-    color: var(--primary-text-color);
-    padding: var(--padding-md) var(--padding-lg);
-    cursor: pointer;
-    border-radius: var(--border-radius-md);
+.modal .center {
+  background-color: var(--bg-btn-color);
+  padding: var(--padding-xxl);
+  border-radius: var(--border-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-md);
+  z-index: 10;
+}
+.modal .center input, .modal .center textarea, .modal .center select {
+  background-color: var(--bg-task-color);
+  border: none;
+  outline: none;
+  color: var(--primary-text-color);
+  padding: var(--padding-md);
+  border-radius: var(--border-radius-sm);
 }
 
-section{
-    padding: var(--section-padding);
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
-    gap: var(--padding-xxl);
-}
-
-section .task-column{
-    display: flex;
-    flex-direction: column;
-    gap: var(--padding-md);
-    flex-grow: 1;
-    background-color: var(--bg-btn-color);
-    padding: var(--padding-md);
-    border-radius: var(--border-radius-md);
-    transition: all 0.7s cubic-bezier(0.19,1,0.22,1);
-}
-section .task-column .heading{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-section .task-column .task{
-    background-color: var(--bg-task-color);
-    padding: var(--padding-md);
-    border-radius: var(--border-radius-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--padding-sm);
-    cursor: grab;
-
-}
-section .task-column .task button{
-    align-self: flex-end;
-    cursor: pointer;
-    padding: var(--padding-sm) var(--padding-md);
-    border-radius: var(--border-radius-sm);
-    border: none;
-    outline: none;
-    background-color: var(--delete-btn-color);
-    color: var(--primary-text-color);
-}
-section .task-column.hover-over{
-    border: 2px dashed var(--primary-text-color);
-    scale: 1.05;
+.modal .center button {
+  background-color: var(--bg-task-color);
+  border: none;
+  outline: none;
+  color: var(--primary-text-color);
+  padding: var(--padding-md) var(--padding-lg);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  width: fit-content;
+  align-self: center;
 }
