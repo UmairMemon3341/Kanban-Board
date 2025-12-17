@@ -10,3 +10,17 @@ tasks.forEach(tasks=>{
         
     })
 })
+
+function addDragEventsOnColumn(column){
+    column.addEventListener('dragenter',(e)=>{
+        e.preventDefault();
+        column.classList.add('hover-over');
+    })
+    column.addEventListener('dragleave',(e)=>{
+        e.preventDefault();
+        column.classList.remove('hover-over')
+    })
+}
+addDragEventsOnColumn(todo);
+addDragEventsOnColumn(progress);
+addDragEventsOnColumn(done);
