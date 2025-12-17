@@ -72,6 +72,7 @@ section .task-column {
   flex-direction: column;
   gap: var(--padding-md);
   flex-grow: 1;
+  width: 100%;
   background-color: var(--bg-btn-color);
   padding: var(--padding-md);
   border-radius: var(--border-radius-md);
@@ -125,8 +126,8 @@ section .task-column.hover-over {
   align-items: center;
   justify-content: center;
 }
-.modal.active{
-    display: flex;
+.modal.active {
+  display: flex;
 }
 
 .modal .center {
@@ -138,7 +139,9 @@ section .task-column.hover-over {
   gap: var(--padding-md);
   z-index: 10;
 }
-.modal .center input, .modal .center textarea, .modal .center select {
+.modal .center input,
+.modal .center textarea,
+.modal .center select {
   background-color: var(--bg-task-color);
   border: none;
   outline: none;
