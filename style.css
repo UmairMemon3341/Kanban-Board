@@ -164,3 +164,15 @@ section .task-column.hover-over {
   width: fit-content;
   align-self: center;
 }
+
+@media screen and (max-width: 600px) {
+  section {
+       display: flex;
+       flex-direction: column;
+       overflow-y: hidden;
+      }
+      section .task-column{
+        /* overflow-x: auto; */
+        display: flex;
+      }
+}

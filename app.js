@@ -1,11 +1,35 @@
-let taskData = {}
+let taskData = {};
 const todo = document.querySelector("#todo");
 const progress = document.querySelector("#progress");
 const done = document.querySelector("#done");
 let dragElement = null;
-const columns = [todo, progress, done]
-
+const columns = [todo, progress, done];
 const tasks = document.querySelectorAll(".task");
+
+if (localStorage.getItem("tasks")) {
+  const data = JSON.parse(localStorage.getItem("tasks"));
+  console.log(data);
+
+  for (const col in data) {
+    const column = document.querySelector(`#${col}`);
+    data[col].forEach((task) => {
+      const div = document.createElement("div");
+      div.classList.add("task");
+      div.setAttribute("draggable", "true");
+
+      div.innerHTML = `
+    <h2>${task.title}</h2>
+    <p>${task.desc}</p>
+    <button>Delete</button>                
+  `;
+      column.appendChild(div);
+      div.addEventListener('drag',()=>{
+        dragElement = div
+    })
+    });
+
+  }
+}
 
 tasks.forEach((tasks) => {
   tasks.addEventListener("drag", (e) => {
@@ -30,11 +54,12 @@ function addDragEventsOnColumn(column) {
     e.preventDefault();
     column.appendChild(dragElement);
     column.classList.remove("hover-over");
-    columns.forEach(col=>{
-        const task = col.querySelectorAll('.task')
-        const count = col.querySelector('.right')
-        count.innerText = task.length
-    })
+
+    columns.forEach((col) => {
+      const task = col.querySelectorAll(".task");
+      const count = col.querySelector(".right");
+      count.innerText = task.length;
+    });
   });
 }
 addDragEventsOnColumn(todo);
@@ -66,18 +91,24 @@ addNewTask.addEventListener("click", () => {
     <p>${taskDesInp}</p>
     <button>Delete</button>                
   `;
-  todo.appendChild(div)
-  
-  columns.forEach(col=>{
-      const task = col.querySelectorAll('.task')
-      const count = col.querySelector('.right')
-      count.innerText = task.length
-    })
-    
-    
-    div.addEventListener('drag',()=>{
-        dragElement = div
-    })
+  todo.appendChild(div);
 
-    modal.classList.remove('active')
+  columns.forEach((col) => {
+    const task = col.querySelectorAll(".task");
+    const count = col.querySelector(".right");
+    taskData[col.id] = Array.from(tasks).map((t) => {
+      return {
+        title: t.querySelector("h2").innerText,
+        desc: t.querySelector("p").innerText,
+      };
+    });
+    localStorage.setItem("tasks", JSON.stringify(taskData));
+    count.innerText = task.length;
+  });
+
+  div.addEventListener("drag", () => {
+    dragElement = div;
+  });
+
+  modal.classList.remove("active");
 });
